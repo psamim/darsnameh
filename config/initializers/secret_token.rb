@@ -1,0 +1,1 @@
+.openshift/lib/secret_token.rb
