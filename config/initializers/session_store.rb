@@ -1,1 +1,1 @@
-.openshift/lib/session_store.rb
+../../.openshift/lib/session_store.rb
