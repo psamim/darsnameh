@@ -1,0 +1,8 @@
+
+<%= form_for(:course, :url => {:action => "create"}) do |c|%>
+<%= c.label(:title)%>
+<%= c.text_field(:title)%>
+<%= c.label(:intro)%>
+<%= c.text_area(:intro)%>
+<%= submit_tag %>
+<% end %>
