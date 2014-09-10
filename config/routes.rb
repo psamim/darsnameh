@@ -16,9 +16,14 @@ Rails.application.routes.draw do
 
   resources :courses do
     resources :lessons do
-      resources :questions
     end
   end
+
+  resources :lessons, except: :index do
+    resources :questions
+  end
+
+  resources :questions
 
   # Example resource route with options:
   #   resources :products do

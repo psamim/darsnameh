@@ -18,7 +18,7 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     if @course.save
-      redirect_to(:action => 'index')
+      redirect_to courses_path
     end
     # TODO
   end
@@ -26,7 +26,7 @@ class CoursesController < ApplicationController
   def destroy
     @course = Course.find params[:id]
     @course.destroy
-    redirect_to :action => 'index'
+    redirect_to courses_path
   end
 
   private
