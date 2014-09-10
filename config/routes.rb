@@ -15,10 +15,10 @@ Rails.application.routes.draw do
   #   resources :products
 
   resources :courses do
+    resources :lessons do
+      resources :questions
     end
-
-  resources :users do
-    end
+  end
 
   # Example resource route with options:
   #   resources :products do

@@ -1,2 +1,17 @@
 
-<%= @id %>
+<h3 class="page-header ">Lessons</h3>
+<div><%= link_to "New Lesson", [:new, @course, :lesson] %>
+
+<table class="table table-hover">
+<tr>
+  <th> Title </th>
+  <th width="10%"> Actions</th>
+</tr>
+<% @course.lessons.each do |lesson| %>
+<tr>
+  <td> <%= link_to lesson.title, [@course, lesson] %></td>
+  <td> <%= link_to raw("<span class='glyphicon glyphicon-remove'></span>"), [@course, lesson], method: :delete  %> </td>
+</tr>
+<% end %>
+</table>
+

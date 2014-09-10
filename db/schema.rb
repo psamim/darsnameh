@@ -36,7 +36,9 @@ ActiveRecord::Schema.define(version: 20140830121440) do
   add_index "courses_users", ["user_id", "course_id"], name: "index_courses_users_on_user_id_and_course_id"
 
   create_table "lessons", force: true do |t|
+    t.string   "title"
     t.text     "text"
+    t.integer  "position"
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
