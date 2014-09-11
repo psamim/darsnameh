@@ -24,6 +24,18 @@ class QuestionsController < ApplicationController
     @page_header = @q.lesson.title
   end
 
+  def edit
+    @question = Question.find params[:id]
+    @page_header = "Edit Question"
+  end
+
+  def update
+    @question = Question.find params[:id]
+    @question.answers.destroy_all
+    @question.update(question_params)
+    redirect_to lesson_path @question.lesson
+  end
+
   private
 
   def question_params

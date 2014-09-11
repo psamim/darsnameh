@@ -23,6 +23,17 @@ class CoursesController < ApplicationController
     # TODO
   end
 
+  def edit
+    @course = Course.find params[:id]
+    @page_header = "Edit " + @course.title
+  end
+
+  def update
+    @course = Course.find params[:id]
+    @course.update(course_params)
+    redirect_to courses_path
+  end
+
   def destroy
     @course = Course.find params[:id]
     @course.destroy

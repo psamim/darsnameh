@@ -5,7 +5,7 @@ class LessonsController < ApplicationController
   end
 
   def create
-    @lesson = Lesson.new(course_params)
+    @lesson = Lesson.new(lesson_params)
     @lesson.course = Course.find params[:course_id]
     if @lesson.save
       redirect_to course_path @lesson.course
@@ -23,9 +23,20 @@ class LessonsController < ApplicationController
     redirect_to course_path @lesson.course
   end
 
+  def edit
+    @lesson = Lesson.find params[:id]
+    @page_header = "Edit " + @lesson.title
+  end
+
+  def update
+    @lesson = Lesson.find params[:id]
+    @lesson.update(lesson_params)
+    redirect_to course_path @lesson.course
+  end
+
   private
 
-  def course_params
+  def lesson_params
     params.require(:lesson).permit(:title, :text)
   end
 end

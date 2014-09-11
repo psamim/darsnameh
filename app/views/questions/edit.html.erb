@@ -1,0 +1,14 @@
+<%= bootstrap_form_for(@question, :url => {:action => "update"}) do |c|%>
+<%= c.text_field :text %>
+<h4 class="page-header ">Answers</h4>
+
+ <%= c.fields_for :answers do |a| %>
+
+<%= a.form_group :terms do %>
+ <%= a.text_field :text, inline: true%>
+ <%= a.check_box :correct, label: "Correct", inline: true %>
+ <% end %>
+ <% end %>
+
+<%= c.submit %>
+<% end %>
