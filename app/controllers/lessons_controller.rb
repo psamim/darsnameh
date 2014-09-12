@@ -1,4 +1,6 @@
 class LessonsController < ApplicationController
+  before_action :confirm_logged_in
+
   def new
     @lesson = Lesson.new
     @page_header = "Add a New Course"

@@ -1,5 +1,7 @@
 class CoursesController < ApplicationController
   # layout false
+  before_action :confirm_logged_in
+
   def index
     @courses = Course.all
     @page_header = "All Courses"

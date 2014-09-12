@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  before_action :confirm_logged_in
+
   def destroy
     @question = Question.find params[:id]
     @question.destroy
