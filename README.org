@@ -1,0 +1,29 @@
+* About
+I am developing this app to learn Rails. This app
+is similar to [[http://darsnameh.com]]. Everyone can enroll
+in courses via email, lessons are emailed to students. Each lesson
+has one quiz, which is sent to students by email. Grades for each quiz,
+course or all enrolled courses can be retrieved using email.
+* Install
+The app is built as an OpenShift app. You can deploy it following
+these steps.
+1. Create an account at https://www.openshift.com.
+2. Create a rails application.
+   #+BEGIN_SRC sh
+    rhc app create railsapp ruby-2.0
+   #+END_SRC
+4. Add database support to your application.
+   #+BEGIN_SRC sh
+    rhc cartridge add -a railsapp -c mysql-5.5
+   #+END_SRC
+5. Add this repo as upstream.
+   #+BEGIN_SRC sh
+    cd railsapp
+    git remote add upstream -m master [THIS_REPO]
+    git pull -s recursive -X theirs upstream master
+   #+END_SRC
+6. Push your new code
+   #+BEGIN_SRC sh
+    git push
+   #+END_SRC
+7. That's it!
