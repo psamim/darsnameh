@@ -10,28 +10,31 @@ class QuizController < ApplicationController
   def correct
     @quiz = Quiz.where(secret: secret).first
     if @quiz.expire > Time.now
-      grade = 0
-      answers.each do |a|
-        if Answer.find(a[1]).correct
-          grade =+ 1
-        end
-      end
-      @quiz.grade = grade
+      @quiz.grade = answers.select(&:correct).count
       @quiz.save
-      render json: grade
-      @user = @quiz.user
-      @course = @quiz.lesson.course
+
       send_next_lesson
       queue_next_quiz
+
+      render json: grade
     else
       # It is expired
     end
   end
 
   private
+  def user
+    @quiz.user
+  end
+
+  def course
+    @quiz.lesson.course
+  end
 
   def answers
-    params.require(:answers)
+    answer_ids = params.require(:answers).map {|a| a[1]}
+
+    Answer.find(answer_ids)
   end
 
   def secret
@@ -39,11 +42,11 @@ class QuizController < ApplicationController
   end
 
   def send_next_lesson
-    Mailer.send_next_lesson @user, @course
+    Mailer.send_next_lesson user, course
   end
 
   def queue_next_quiz
-    next_quiz = Helper.create_quiz @user, Helper.next_lesson(@user, @course)
+    next_quiz = Helper.create_quiz user, Helper.next_lesson(user, course)
     next_quiz
   end
 end
