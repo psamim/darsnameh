@@ -27,6 +27,9 @@ Rails.application.routes.draw do
 
   resources :questions, except: :index
 
+  get 'quiz/:secret' => 'quiz#show'
+  match 'quiz', to: 'quiz#correct', via: [:post]
+
   # Example resource route with options:
   #   resources :products do
   #     member do
