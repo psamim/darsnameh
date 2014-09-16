@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   root 'access#login'
   match '/login', to: 'access#attempt_login', via: [:post], as: :login
   match '/logout', to: 'access#logout', via: [:post, :get], as: :logout
+  get 'quiz/:secret' => 'quiz#show'
+  match 'quiz', to: 'quiz#correct', via: [:post]
+  match 'email', to: 'mail_reciever#on_incoming_email', via: [:post, :get]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -27,8 +30,6 @@ Rails.application.routes.draw do
 
   resources :questions, except: :index
 
-  get 'quiz/:secret' => 'quiz#show'
-  match 'quiz', to: 'quiz#correct', via: [:post]
 
   # Example resource route with options:
   #   resources :products do
