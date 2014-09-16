@@ -1,25 +1,21 @@
 class QuizController < ApplicationController
   include Helper
   require 'digest/sha1'
+  before_action :get_secret, only: [:show, :correct]
+  before_action :find_quiz, only: [:show, :correct]
+
+  attr_accessor :quiz, :secret
 
   def show
-    q = Quiz.where(secret: secret).first
-    @questions = Question.where(lesson: q.lesson)
+      @questions = Question.where(lesson: quiz.lesson)
   end
 
   def correct
-    @quiz = Quiz.where(secret: secret).first
-    if @quiz.expire > Time.now
-      @quiz.grade = answers.select(&:correct).count
-      @quiz.save
-
-      send_next_lesson
-      queue_next_quiz
-
-      render json: grade
-    else
-      # It is expired
-    end
+      quiz.grade = answers.select(&:correct).count
+      quiz.save
+      # send_next_lesson
+      # queue_next_quiz
+      render json: quiz.grade
   end
 
   private
@@ -37,16 +33,25 @@ class QuizController < ApplicationController
     Answer.find(answer_ids)
   end
 
-  def secret
-    params.require(:secret)
+  def get_secret
+    self.secret = params[:secret]
   end
 
   def send_next_lesson
-    Mailer.send_next_lesson user, course
+    Mailer.send_next_lesson(user, course).deliver
   end
 
   def queue_next_quiz
     next_quiz = Helper.create_quiz user, Helper.next_lesson(user, course)
     next_quiz
+  end
+
+  def find_quiz
+    self.quiz = Quiz.where(secret: secret).first
+    unless self.quiz
+      render plain: "Not found"
+      return false
+    end
+    render plain: "Expired" if self.quiz.expire < Time.now
   end
 end
