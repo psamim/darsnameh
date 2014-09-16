@@ -7,6 +7,8 @@ gem 'rails', '4.1.4'
 # Fix the conflict with the system 'rake':
 gem 'rake', '~> 0.9.6'
 
+gem 'sidekiq'
+
 # Support for databases and environment.
 # Use 'sqlite3' for testing and development and mysql and postgresql
 # for production.
@@ -17,6 +19,7 @@ gem 'rake', '~> 0.9.6'
 # $ rhc env set BUNDLE_WITHOUT="development test postgresql"
 #
 group :development, :test do
+  gem 'jazz_hands' # better console
   gem 'sqlite3'
   gem 'minitest'
   gem 'thor'
