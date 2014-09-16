@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20140914115405) do
   create_table "courses", force: true do |t|
     t.string   "title"
     t.text     "intro"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
