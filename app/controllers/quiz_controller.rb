@@ -1,7 +1,6 @@
 class QuizController < ApplicationController
   include Helper
   require 'digest/sha1'
-  include Sidekiq::Worker
 
   before_action :get_secret, only: [:show, :correct]
   before_action :find_quiz, only: [:show, :correct]
@@ -15,7 +14,7 @@ class QuizController < ApplicationController
   def correct
       quiz.grade = answers.select(&:correct).count
       quiz.save
-      QuizController.delay.send_next_lesson # Only for test
+      send_next_lesson
       # queue_next_quiz
       render json: quiz.grade
   end
@@ -29,9 +28,12 @@ class QuizController < ApplicationController
     @quiz.lesson.course
   end
 
+  def lesson
+    @quiz.lesson
+  end
+
   def answers
     answer_ids = params.require(:answers).map {|a| a[1]}
-
     Answer.find(answer_ids)
   end
 
@@ -40,13 +42,12 @@ class QuizController < ApplicationController
   end
 
   def send_next_lesson
-    # Mailer.delay.send_next_lesson(user, course)
-    Mailer.welcome # Only for test
+    NextLessonWorker.perform_async user.id, course.id
   end
 
   def queue_next_quiz
     next_quiz = Helper.create_quiz user, Helper.next_lesson(user, course)
-    next_quiz
+    NextQuizWorker.perform_in lesson.duration_days.day, next_quiz.id
   end
 
   def find_quiz

@@ -10,6 +10,7 @@ class Mailer < ActionMailer::Base
 
   def send_next_lesson(user, course)
     next_lesson = Helper.next_lesson user, course
-    mail to: user.email, subject: next_lesson.title
+    next_lesson_mail = mail to: user.email, subject: next_lesson.title
+    next_lesson_mail.deliver
   end
 end
