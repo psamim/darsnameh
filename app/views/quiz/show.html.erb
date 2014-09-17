@@ -1,0 +1,13 @@
+
+<%= bootstrap_form_tag url: '/quiz' do |f| %>
+  <% @questions.each do |q| %>
+    <%= q.text %>
+    <%= f.form_group q.id.to_s do %>
+      <% q.answers.each do |a| %>
+        <%= f.radio_button "answers[" + q.id.to_s + "]", a.id, label: a.text, inline: true %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= hidden_field_tag :secret, params[:secret] %>
+  <%= f.submit %>
+<% end %>

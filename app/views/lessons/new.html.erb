@@ -1,0 +1,6 @@
+
+<%= bootstrap_form_for(:lesson, :url => {:action => "create"}) do |l|%>
+   <%= l.text_field :title %>
+   <%= l.text_area :text %>
+   <%= l.submit %>
+ <% end %>

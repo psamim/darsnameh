@@ -1,0 +1,10 @@
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+<%= bootstrap_form_for(:user, :url => {:action => "attempt_login"}) do |c|%>
+   <%= c.text_field :email %>
+   <%= c.password_field :password %>
+   <%= c.primary "Login" %>
+ <% end %>
+    </div>
+</div>
