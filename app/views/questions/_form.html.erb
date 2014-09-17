@@ -1,0 +1,13 @@
+Back to <%= link_to(@question.lesson.title, @question.lesson) %><br /><br />
+<%= bootstrap_form_for(@question) do |c|%>
+  <%= c.text_field :text %>
+  <h4 class="page-header ">Answers</h4>
+  <%= c.fields_for :answers do |a| %>
+    <%= a.text_field :text %>
+    <%= a.check_box :correct do %>
+      Correct
+    <% end %>
+  <% end %>
+  <%= c.hidden_field :lesson_id, value: @question.lesson.id %>
+  <%= c.submit %>
+<% end %>

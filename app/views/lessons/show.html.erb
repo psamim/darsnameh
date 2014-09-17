@@ -18,7 +18,7 @@
   <% @lesson.questions.each do |q, lesson| %>
     <tr>
       <td> <%= link_to q.text, [q] %></td>
-      <td> <%= link_to raw("<span class='glyphicon glyphicon-remove'></span>"), [q], method: :delete  %>
+      <td> <%= link_to raw("<span class='glyphicon glyphicon-remove'></span>"), [q], method: :delete, data: { confirm: 'Are you sure?' }  %>
         <%= link_to raw("<span class='glyphicon glyphicon-pencil'></span>"), [:edit, q]  %> </td>
     </tr>
   <% end %>

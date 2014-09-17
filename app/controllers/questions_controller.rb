@@ -6,10 +6,10 @@ class QuestionsController < ApplicationController
   attr_accessor :question, :page_header
 
   def new
+    @question = Question.new
+    @question.lesson = Lesson.find params[:lesson_id]
     self.page_header = "New Question"
     4.times { question.answers.build }
-
-    question
   end
 
   def create

@@ -21,7 +21,7 @@
   <td> <%= lesson.position %> </td>
   <td> <%= link_to lesson.title, [@course, lesson] %></td>
   <td> <%= lesson.duration_days %></td>
-  <td> <%= link_to raw("<span class='glyphicon glyphicon-remove'></span>"), [@course, lesson], method: :delete  %>
+  <td> <%= link_to raw("<span class='glyphicon glyphicon-remove'></span>"), [@course, lesson], method: :delete, data: { confirm: 'Are you sure?' }  %>
   <%= link_to raw("<span class='glyphicon glyphicon-pencil'></span>"), [:edit, lesson]  %> </td>
 </tr>
 <% end %>
