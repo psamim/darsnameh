@@ -1,3 +1,8 @@
+<h3 class="page-header ">Intro</h3>
+<%= @course.intro %>
+
+<br />
+<br />
 
 <h3 class="page-header ">Lessons</h3>
 <div class="btn-group btn-group-justified">
@@ -5,18 +10,22 @@
 </div>
 <br />
 <table class="table table-hover">
-<tr>
+  <tr>
   <th width="10%"> # </th>
   <th> Title </th>
+  <th> Duration (days) </th>
   <th width="10%"> Actions</th>
 </tr>
 <% @course.lessons.each do |lesson| %>
 <tr>
   <td> <%= lesson.position %> </td>
   <td> <%= link_to lesson.title, [@course, lesson] %></td>
-  <td> <%= link_to raw("<span class='glyphicon glyphicon-remove'></span>"), [@course, lesson], method: :delete  %>
+  <td> <%= lesson.duration_days %></td>
+  <td> <%= link_to raw("<span class='glyphicon glyphicon-remove'></span>"), [@course, lesson], method: :delete, data: { confirm: 'Are you sure?' }  %>
   <%= link_to raw("<span class='glyphicon glyphicon-pencil'></span>"), [:edit, lesson]  %> </td>
 </tr>
 <% end %>
 </table>
 
+<h3 class="page-header ">Subscribe</h3>
+Email-ID: <%= @course.email %>

@@ -1,7 +1,1 @@
-
-<%= bootstrap_form_for(:course, :url => {:action => "create"}) do |c|%>
-   <%= c.text_field :title %>
-   <%= c.text_field :email %>
-   <%= c.text_area :intro %>
-   <%= c.submit %>
- <% end %>
+<%= render 'form' %>

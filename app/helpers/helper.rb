@@ -2,7 +2,7 @@ module Helper
   def Helper.next_lesson(user, course)
     last_quiz = Quiz.joins(:lesson).where(lessons: {course_id: course}, user_id: user).last
     last_lesson_position  = last_quiz.lesson.position
-    next_lesson = Lesson.where(position: last_lesson_position + 1)
+    next_lesson = Lesson.where(position: last_lesson_position + 1).first
     return next_lesson
   end
 

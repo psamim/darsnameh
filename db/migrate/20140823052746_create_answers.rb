@@ -4,7 +4,6 @@ class CreateAnswers < ActiveRecord::Migration
       t.string :text
       t.belongs_to :question
       t.boolean :correct
-      t.timestamps
     end
   end
 end

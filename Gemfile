@@ -17,6 +17,7 @@ gem 'rake', '~> 0.9.6'
 # $ rhc env set BUNDLE_WITHOUT="development test postgresql"
 #
 group :development, :test do
+  # gem 'jazz_hands' # better console
   gem 'sqlite3'
   gem 'minitest'
   gem 'thor'
@@ -70,3 +71,4 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'bootstrap_form'
 gem 'acts_as_list'
+gem 'sidekiq'

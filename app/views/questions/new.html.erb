@@ -1,13 +1,1 @@
-<%= bootstrap_form_for(@question, :url => {:action => "create"}) do |c|%>
-<%= c.text_field :text %>
-<h4 class="page-header ">Answers</h4>
- <%= c.fields_for :answers do |a| %>
- <%= a.text_field :text %>
- <%= a.check_box :correct do %>
- Correct
- <% end %>
- <% end %>
-<%= c.submit %>
-<% end %>
-
-
+<%= render 'form' %>

@@ -1,0 +1,17 @@
+<%= bootstrap_form_for(@course) do |c|%>
+
+  <% if @course.errors.any? %>
+    <div id="errors" class="bg-danger">
+      <p><%= pluralize(@course.errors.count, "error") %> prohibited course from being saved:</p>
+      <ul>
+      <% @course.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+   <%= c.text_field :title %>
+   <%= c.text_field :email %>
+   <%= c.text_area :intro %>
+   <%= c.submit %>
+ <% end %>

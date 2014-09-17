@@ -1,11 +1,11 @@
-
+Back to <%= link_to(@question.lesson.title, @question.lesson) %><br /><br />
 <h4 class="page-header ">Question</h4>
-<%= @q.text %>
+<%= @question.text %>
 <br />
 <br />
 <h4 class="page-header ">Answers</h4>
 <ul>
-<% @q.answers.each do |a| %>
+<% @question.answers.each do |a| %>
 <li><%= a.text  + ( a.correct ? " (correct answer)" : "" )  %></li>
 <% end %>
 </ul>
