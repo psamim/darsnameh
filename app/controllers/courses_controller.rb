@@ -1,6 +1,7 @@
 class CoursesController < ApplicationController
   # layout false
   before_action :confirm_logged_in
+  before_action :set_course, only: [:show, :edit, :update, :destroy]
 
   def index
     @courses = Course.all
@@ -8,7 +9,6 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @course = Course.find params[:id]
     @page_header = @course.title
   end
 
@@ -20,31 +20,36 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     if @course.save
-      redirect_to courses_path
+      redirect_to @course, notice: 'Course created'
+    else
+      render :new
     end
-    # TODO
   end
 
   def edit
-    @course = Course.find params[:id]
     @page_header = "Edit " + @course.title
   end
 
   def update
-    @course = Course.find params[:id]
-    @course.update(course_params)
-    redirect_to courses_path
+    if @course.update(course_params)
+      redirect_to @course, notice: 'Course updated'
+    else
+      render :edit
+    end
   end
 
   def destroy
-    @course = Course.find params[:id]
     @course.destroy
-    redirect_to courses_path
+    redirect_to courses_url, notice: 'Course deleted'
   end
 
   private
 
   def course_params
-    params.require(:course).permit(:title, :intro)
+    params.require(:course).permit(:title, :intro, :email, :duration_days)
+  end
+
+  def set_course
+    @course = Course.find params[:id]
   end
 end
