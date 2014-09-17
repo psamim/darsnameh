@@ -1,5 +1,6 @@
 class Course < ActiveRecord::Base
   has_many :lessons
-  has_and_belongs_to_many :users
+  has_many :users, through: :enrollments
+  has_many :enrollments
   validates_presence_of :email, :title
 end
