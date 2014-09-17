@@ -13,12 +13,14 @@
   <tr>
   <th width="10%"> # </th>
   <th> Title </th>
+  <th> Duration (days) </th>
   <th width="10%"> Actions</th>
 </tr>
 <% @course.lessons.each do |lesson| %>
 <tr>
   <td> <%= lesson.position %> </td>
   <td> <%= link_to lesson.title, [@course, lesson] %></td>
+  <td> <%= lesson.duration_days %></td>
   <td> <%= link_to raw("<span class='glyphicon glyphicon-remove'></span>"), [@course, lesson], method: :delete  %>
   <%= link_to raw("<span class='glyphicon glyphicon-pencil'></span>"), [:edit, lesson]  %> </td>
 </tr>
