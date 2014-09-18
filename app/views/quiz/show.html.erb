@@ -4,7 +4,7 @@
     <%= q.text %>
     <%= f.form_group q.id.to_s do %>
       <% q.answers.each do |a| %>
-        <%= f.radio_button "answers[" + q.id.to_s + "]", a.id, label: a.text, inline: true %>
+        <%= f.radio_button "answers[#{q.id}]", a.id, label: a.text, inline: true %>
       <% end %>
     <% end %>
   <% end %>
