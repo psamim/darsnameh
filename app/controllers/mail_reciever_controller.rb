@@ -12,8 +12,8 @@ class MailRecieverController < ApplicationController
     else
       course = Course.find_by_email command
       if course
-        send_enrollment_confirmation_mail
-        render json: course.title
+        render plain: "Confirmation code for " + course.id.to_s + " sent to " + user.email
+        send_enrollment_confirmation_mail course
       else
         render plain: command
         send_command_not_found_mail
@@ -38,7 +38,8 @@ class MailRecieverController < ApplicationController
     self.command= /.+(?=@)/.match(email_params[:recipient]).to_s
   end
 
-  def send_enrollment_confirmation_mail
+  def send_enrollment_confirmation_mail(course)
+    ConfirmationWorker.perform_async user.id, course.id
   end
 
   def send_command_not_found_mail

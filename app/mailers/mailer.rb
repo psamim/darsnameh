@@ -24,7 +24,8 @@ class Mailer < ActionMailer::Base
   end
 
   def send_enrollment_confirmation(user, course)
-    @enrollment  = user.enrollments.create course: course, code: ranr(10000...9999)
+    code = rand(1000...9999)
+    @enrollment  = user.enrollments.create course: course, code: code, user: user
     confirmation_mail = mail to: user.email, subject: "Confirm your enrollment in " + course.title
     confirmation_mail.deliver
   end
