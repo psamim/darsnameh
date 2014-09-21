@@ -1,22 +1,24 @@
 class MailRecieverController < ApplicationController
+  before_action :set_user, only: :on_incoming_email
+  before_action :set_command, only: :on_incoming_email
+  attr_accessor :user, :command
+
   def on_incoming_email
-    command = /.+(?=@)/.match(email_params[:recipient]).to_s
+    user.save
     case command
       when "status"
-        render plain: "Yes"
+        render plain: "Status mail sent to  " + user.email + " with ID " + user.id.to_s
+        send_status_mail
     else
       course = Course.find_by_email command
       if course
+        send_enrollment_confirmation_mail
         render json: course.title
       else
         render plain: command
+        send_command_not_found_mail
       end
     end
-    # See if sender is a user
-    # Get the command
-    # Else see if it is a course
-    # Register the user in course
-    send_enrollment_confirmation
   end
 
   private
@@ -24,6 +26,25 @@ class MailRecieverController < ApplicationController
     params.permit :sender, :recipient, :subject, "body-plain", "stripped-text"
   end
 
-  def send_enrollment_confirmation
+  def set_user
+    self.user = User.find_by_email email_params[:sender]
+    unless  self.user
+      self.user = User.new
+      self.user.email = email_params[:sender]
+    end
+  end
+
+  def set_command
+    self.command= /.+(?=@)/.match(email_params[:recipient]).to_s
+  end
+
+  def send_enrollment_confirmation_mail
+  end
+
+  def send_command_not_found_mail
+  end
+
+  def send_status_mail
+    StatusWorker.perform_async user.id
   end
 end
