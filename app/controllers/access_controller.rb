@@ -3,28 +3,26 @@ class AccessController < ApplicationController
   layout "out"
 
   def login
-    puts "AAAA"
-    @user = User.new
+    @admin = Admin.new
   end
 
   def logout
-    session[:user_id] = nil
+    session[:admin_id] = nil
     flash[:notice] = "Logged out successfuly"
     redirect_to :action => :login
   end
 
   def attempt_login
     if access_params[:email].present? && access_params[:password].present?
-      user = User.where(:email => access_params[:email]).first
-      if (user)
-        auth_user = user.authenticate access_params[:password]
+      admin = Admin.where(:email => access_params[:email]).first
+      if (admin)
+        auth_admin = admin.authenticate access_params[:password]
       end
     end
-    if (auth_user)
-      session[:user_id] = auth_user.id
+    if (auth_admin)
+      session[:admin_id] = auth_admin.id
       redirect_to courses_path
     else
-      flash[:notice] = access_params[:email]
       redirect_to :action => :login
     end
   end
@@ -32,6 +30,6 @@ class AccessController < ApplicationController
   private
 
   def access_params
-    params.require(:user).permit(:email, :password)
+    params.require(:admin).permit(:email, :password)
   end
 end
