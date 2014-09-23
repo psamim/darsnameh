@@ -65,7 +65,8 @@ class MailRecieverController < ApplicationController
   end
 
   def send_welcome_mail(user, course)
-    WelcomeWorker.perform_async user.id, course.id
+    # WelcomeWorker.perform_async user.id, course.id
+    WelcomeWorker.new.perform user.id, course.id
     render plain:
     'Welcome mail sent to  ' + user.email + ' with ID ' + user.id.to_s
   end

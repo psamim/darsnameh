@@ -6,7 +6,7 @@ module Helper
              AND 'quizzes'.'user_id' = :user_id
              AND ('quizzes'.'grade' IS NOT NULL)
              },
-             { user_id: user.id, course_id: course.id })
+             user_id: user.id, course_id: course.id)
     .last
     return course.lessons.where(position: 1).first unless last_quiz
     last_lesson_position  = last_quiz.lesson.position
@@ -15,10 +15,13 @@ module Helper
   end
 
   def self.create_quiz(user, lesson)
-    quiz = Quiz.new(user: user, lesson: lesson)
-    quiz.secret = Digest::SHA1.hexdigest Time.new.to_f.to_s + user.id.to_s
-    quiz.expire = 2.day.from_now
-    quiz.save
+    secret = Digest::SHA1.hexdigest Time.new.to_f.to_s + user.id.to_s
+    quiz = Quiz.create(
+      user: user,
+      lesson: lesson,
+      secret: secret,
+      expire: 2.day.from_now)
+    quiz
   end
 
   def self.queue_next_quiz(user, course)
