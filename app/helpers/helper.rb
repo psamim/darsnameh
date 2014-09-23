@@ -9,9 +9,14 @@ module Helper
   end
 
   def self.create_quiz(user, lesson)
-    q = Quiz.new(user: user, lesson: lesson)
-    q.secret = Digest::SHA1.hexdigest Time.new.to_f.to_s + user.id.to_s
-    q.expire = 2.day.from_now
-    q.save
+    quiz = Quiz.new(user: user, lesson: lesson)
+    quiz.secret = Digest::SHA1.hexdigest Time.new.to_f.to_s + user.id.to_s
+    quiz.expire = 2.day.from_now
+    quiz.save
+  end
+
+  def self.queue_next_quiz(user, course)
+    next_quiz = Helper.create_quiz user, Helper.next_lesson(user, course)
+    NextQuizWorker.perform_async next_quiz.id
   end
 end

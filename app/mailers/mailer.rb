@@ -34,6 +34,7 @@ class Mailer < ActionMailer::Base
     welcome_mail = mail to: user.email, subject: 'Welcome to ' + course.title
     welcome_mail.deliver
     send_next_lesson user, course
+    Helper.queue_next_quiz user, course
   end
 
   def send_quiz(quiz)
