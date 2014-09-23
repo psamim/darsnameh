@@ -4,6 +4,7 @@ class CreateEnrollments < ActiveRecord::Migration
       t.integer :user_id
       t.integer :course_id
       t.integer :code
+      t.boolean :confirmed
       t.timestamps
     end
   end
