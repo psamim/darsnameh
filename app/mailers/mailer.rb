@@ -4,9 +4,8 @@ class Mailer < ActionMailer::Base
   default from: 'samim@sandbox175821ce2bc7404e8a48d3d8b11e3630.mailgun.org'
 
   def send_next_lesson(user, course)
-    next_lesson = Helper.next_lesson user, course
-    next_lesson_mail = mail to: user.email, subject: next_lesson.title
-    @lesson = next_lesson
+    @next_lesson = Helper.next_lesson user, course
+    next_lesson_mail = mail to: user.email, subject: @next_lesson.title
     next_lesson_mail.deliver
   end
 
@@ -33,8 +32,6 @@ class Mailer < ActionMailer::Base
     @course = course
     welcome_mail = mail to: user.email, subject: 'Welcome to ' + course.title
     welcome_mail.deliver
-    send_next_lesson user, course
-    Helper.queue_next_quiz user, course
   end
 
   def send_quiz(quiz)
