@@ -1,7 +1,8 @@
 class NextQuizWorker
   include Sidekiq::Worker
 
-  def perform
-    Mailer.welcome
+  def perform(quiz_id)
+    quiz = Quiz.find quiz_id
+    Mailer.send_quiz quiz
   end
 end

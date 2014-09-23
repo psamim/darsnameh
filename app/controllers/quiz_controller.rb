@@ -15,7 +15,7 @@ class QuizController < ApplicationController
     quiz.grade = answers.select(&:correct).count
     quiz.save
     send_next_lesson
-    # queue_next_quiz
+    queue_next_quiz
     render json: quiz.grade
   end
 
@@ -48,7 +48,7 @@ class QuizController < ApplicationController
 
   def queue_next_quiz
     next_quiz = Helper.create_quiz user, Helper.next_lesson(user, course)
-    NextQuizWorker.perform_in lesson.duration_days.day, next_quiz.id
+    NextQuizWorker.perform_async next_quiz.id
   end
 
   def find_quiz

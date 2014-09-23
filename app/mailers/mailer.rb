@@ -35,4 +35,12 @@ class Mailer < ActionMailer::Base
     welcome_mail.deliver
     send_next_lesson user, course
   end
+
+  def send_quiz(quiz)
+    @quiz = quiz
+    quiz_mail = mail(
+      to: quiz.user.email,
+      subject: 'Quiz for ' + quiz.lesson.title)
+    quiz_mail.deliver
+  end
 end
