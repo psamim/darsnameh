@@ -9,7 +9,7 @@ class Mailer < ActionMailer::Base
   end
 
   def send_status(user)
-    @courses = user.courses
+    @courses = user.courses.where(enrollments: { confirmed: true })
     mail to: user.email,
          subject: 'Your status'
   end
