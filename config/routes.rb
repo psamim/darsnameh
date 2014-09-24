@@ -6,10 +6,12 @@ Rails.application.routes.draw do
   root 'access#login'
   match '/login', to: 'access#attempt_login', via: [:post], as: :login
   match '/logout', to: 'access#logout', via: [:post, :get], as: :logout
-  get 'quiz/:secret' => 'quiz#show'
-  match 'quiz', to: 'quiz#correct', via: [:post]
+  get 'quiz/:secret' => 'quiz#show', as: :quiz
+  match 'quiz', to: 'quiz#result', via: [:post, :get]
   match 'email', to: 'mail_reciever#on_incoming_email', via: [:post, :get]
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

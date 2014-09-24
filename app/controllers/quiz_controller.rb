@@ -1,17 +1,18 @@
 class QuizController < ApplicationController
   require 'digest/sha1'
 
-  before_action :find_secret, only: [:show, :correct]
-  before_action :find_quiz, only: [:show, :correct]
-  before_action :find_next_lesson, only: [:correct]
+  before_action :find_secret, only: [:show, :result]
+  before_action :find_quiz, only: [:show, :result]
+  before_action :find_next_lesson, only: [:result]
 
   attr_accessor :quiz, :secret, :next_lesson
+  layout 'out'
 
   def show
     @questions = Question.where(lesson: quiz.lesson)
   end
 
-  def correct
+  def result
     quiz.grade = answers.select(&:correct).count
     quiz.save
 
@@ -21,8 +22,6 @@ class QuizController < ApplicationController
     else
       send_course_finished
     end
-
-    render json: quiz.grade
   end
 
   private

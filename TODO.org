@@ -1,1 +1,14 @@
-* TODO Quiz for last lesson
+* DONE [#A] Quiz for last lesson
+CLOSED: [2014-09-24 Wed 11:58]
+* DONE [#A] URL to quiz
+CLOSED: [2014-09-24 Wed 11:59]
+* TODO Change email settings to ENV
+* TODO Course finished mail
+* TODO Internationalization
+* TODO Quiz layout
+* TODO Grade layout
+* TODO Rich text editor for lesson text
+* TODO [#A] Send quiz again if failed
+* TODO [#C] Cancel enrollment if failed two times
+* TODO [#C] Quiz has one enrollment
+* TODO Mass Mail Sender
