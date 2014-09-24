@@ -1,7 +1,8 @@
 Back to <%= link_to(@lesson.course.title, @lesson.course) %><br /><br />
 <%= bootstrap_form_for(@lesson) do |l|%>
   <%= l.text_field :title %>
-  <%= l.text_area :text %>
+  <%= l.label :text %>
+  <%= l.cktext_area :text, :ckeditor => {:language => 'en'} %>
   <%= l.select :duration_days, 1..10, { label: "Days this lesson needs:" }, { class: "selectpicker" } %>
   <%= l.hidden_field :course_id, value: @lesson.course.id %>
   <%= l.submit %>

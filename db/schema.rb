@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140921072114) do
+ActiveRecord::Schema.define(version: 20140924135617) do
 
   create_table "admin_users", force: true do |t|
   end
@@ -29,6 +29,22 @@ ActiveRecord::Schema.define(version: 20140921072114) do
     t.boolean "correct"
   end
 
+  create_table "ckeditor_assets", force: true do |t|
+    t.string   "data_file_name",               null: false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    limit: 30
+    t.string   "type",              limit: 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable"
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type"
+
   create_table "courses", force: true do |t|
     t.string   "title"
     t.text     "intro"
@@ -41,6 +57,7 @@ ActiveRecord::Schema.define(version: 20140921072114) do
     t.integer  "user_id"
     t.integer  "course_id"
     t.integer  "code"
+    t.boolean  "confirmed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

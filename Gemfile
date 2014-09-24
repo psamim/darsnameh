@@ -21,6 +21,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'minitest'
   gem 'thor'
+  gem 'sinatra', '>= 1.3.0', :require => nil
 end
 
 # Add support for the MySQL
@@ -72,4 +73,7 @@ gem 'autoprefixer-rails', '~> 3.1.0.20140911'
 gem 'bootstrap_form', '~> 2.2.0'
 gem 'acts_as_list', '~> 0.4.0'
 gem 'sidekiq', '~> 3.2.5'
-gem 'roadie', '~> 3.0.1'
+gem 'nokogiri', '~> 1.6.3.1'
+gem 'premailer-rails', '~> 1.8.0'
+gem 'ckeditor', '~> 4.1.0'
+gem 'paperclip', '~> 4.2.0'
