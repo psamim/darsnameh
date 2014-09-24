@@ -4,6 +4,6 @@ class ConfirmationWorker
   def perform(user_id, course_id)
     user = User.find user_id
     course = Course.find course_id
-    Mailer.send_enrollment_confirmation user, course
+    Mailer.send_enrollment_confirmation(user, course).deliver
   end
 end

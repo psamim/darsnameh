@@ -5,14 +5,13 @@ class Mailer < ActionMailer::Base
 
   def send_next_lesson(user, course)
     @next_lesson = Helper.next_lesson user, course
-    next_lesson_mail = mail to: user.email, subject: @next_lesson.title
-    next_lesson_mail.deliver
+    mail to: user.email, subject: @next_lesson.title
   end
 
   def send_status(user)
     @courses = user.courses
-    status_mail = mail to: user.email, subject: 'Your status'
-    status_mail.deliver
+    mail to: user.email,
+         subject: 'Your status'
   end
 
   def send_command_not_found
@@ -22,23 +21,19 @@ class Mailer < ActionMailer::Base
     code = rand(1000...9999)
     @enrollment  = user.enrollments
       .create course: course, code: code, user: user
-    confirmation_mail = mail(
-      to: user.email,
-      subject: 'Confirm your enrollment in ' + course.title)
-    confirmation_mail.deliver
+    mail to: user.email,
+         subject: 'Confirm your enrollment in ' + course.title
   end
 
   def send_welcome(user, course)
     @course = course
-    welcome_mail = mail to: user.email, subject: 'Welcome to ' + course.title
-    welcome_mail.deliver
+    mail to: user.email,
+         subject: 'Welcome to ' + course.title
   end
 
   def send_quiz(quiz)
     @quiz = quiz
-    quiz_mail = mail(
-      to: quiz.user.email,
-      subject: 'Quiz for ' + quiz.lesson.title)
-    quiz_mail.deliver
+    mail to: quiz.user.email,
+         subject: 'Quiz for ' + quiz.lesson.title
   end
 end

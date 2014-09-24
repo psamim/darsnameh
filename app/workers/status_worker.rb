@@ -3,6 +3,6 @@ class StatusWorker
 
   def perform(user_id)
     user = User.find user_id
-    Mailer.send_status user
+    Mailer.send_status(user).deliver
   end
 end
