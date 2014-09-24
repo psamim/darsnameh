@@ -13,5 +13,6 @@ CLOSED: [2014-09-24 Wed 11:59]
 * TODO [#C] Quiz has one enrollment
 * TODO Mass Mail Sender
 * TODO First page layout
-* TODO better login url
+* DONE better login url
+CLOSED: [2014-09-24 Wed 16:16]
 * TODO Ability for admin to change password
