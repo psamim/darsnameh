@@ -2,6 +2,9 @@ class AccessController < ApplicationController
   # before_action :confirm_logged_in, :except => [:login, :logout, :confirm_logged_in]
   layout "out"
 
+  def welcome
+  end
+
   def login
     @admin = Admin.new
   end

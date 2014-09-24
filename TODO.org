@@ -14,3 +14,4 @@ CLOSED: [2014-09-24 Wed 11:59]
 * TODO Mass Mail Sender
 * TODO First page layout
 * TODO better login url
+* TODO Ability for admin to change password

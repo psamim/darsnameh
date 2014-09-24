@@ -3,8 +3,9 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'access#login'
-  match '/login', to: 'access#attempt_login', via: [:post], as: :login
+  root 'access#welcome'
+  get  '/login', to: 'access#login', as: :login
+  match '/login', to: 'access#attempt_login', via: [:post]
   match '/logout', to: 'access#logout', via: [:post, :get], as: :logout
   get 'quiz/:secret' => 'quiz#show', as: :quiz
   match 'quiz', to: 'quiz#result', via: [:post, :get]
