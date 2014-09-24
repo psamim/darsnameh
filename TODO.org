@@ -16,4 +16,5 @@ CLOSED: [2014-09-24 Wed 16:43]
 * TODO First page layout
 * DONE better login url
 CLOSED: [2014-09-24 Wed 16:16]
-* TODO Ability for admin to change password
+* DONE Ability for admin to change password
+CLOSED: [2014-09-24 Wed 17:47]

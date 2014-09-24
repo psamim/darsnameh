@@ -69,5 +69,6 @@ class QuizController < ApplicationController
   end
 
   def send_course_finished
+    CourseFinishedWorker.perform_async user, course
   end
 end
