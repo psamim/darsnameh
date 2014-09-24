@@ -12,3 +12,5 @@ CLOSED: [2014-09-24 Wed 11:59]
 * TODO [#C] Cancel enrollment if failed two times
 * TODO [#C] Quiz has one enrollment
 * TODO Mass Mail Sender
+* TODO First page layout
+* TODO better login url
