@@ -68,7 +68,8 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'debugger', group: [:development, :test]
 
 gem 'bootstrap-sass', '~> 3.2.0'
-gem 'autoprefixer-rails'
-gem 'bootstrap_form'
-gem 'acts_as_list'
-gem 'sidekiq'
+gem 'autoprefixer-rails', '~> 3.1.0.20140911'
+gem 'bootstrap_form', '~> 2.2.0'
+gem 'acts_as_list', '~> 0.4.0'
+gem 'sidekiq', '~> 3.2.5'
+gem 'roadie', '~> 3.0.1'
