@@ -1,19 +1,22 @@
+* TODO [#A] Internationalization
+* TODO [#A] Send quiz again if failed
+* TODO [#A] Grading system
+* TODO Change email settings to ENV
+* TODO Course finished view
+* TODO Quiz view
+* TODO Grade view
+* TODO Mass Mail Sender
+* TODO First page view
+* TODO [#C] Cancel enrollment if failed two times
+* TODO [#C] Quiz has one enrollment
 * DONE [#A] Quiz for last lesson
 CLOSED: [2014-09-24 Wed 11:58]
 * DONE [#A] URL to quiz
 CLOSED: [2014-09-24 Wed 11:59]
-* TODO Change email settings to ENV
-* TODO Course finished mail
-* TODO Internationalization
-* TODO Quiz layout
-* TODO Grade layout
+* DONE Course finished mail
+CLOSED: [2014-09-24 Wed 17:57]
 * DONE Rich text editor for lesson text
 CLOSED: [2014-09-24 Wed 16:43]
-* TODO [#A] Send quiz again if failed
-* TODO [#C] Cancel enrollment if failed two times
-* TODO [#C] Quiz has one enrollment
-* TODO Mass Mail Sender
-* TODO First page layout
 * DONE better login url
 CLOSED: [2014-09-24 Wed 16:16]
 * DONE Ability for admin to change password
