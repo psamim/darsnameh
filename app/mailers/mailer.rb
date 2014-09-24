@@ -2,10 +2,12 @@ class Mailer < ActionMailer::Base
   include Helper
 
   default from: 'samim@sandbox175821ce2bc7404e8a48d3d8b11e3630.mailgun.org'
+  default_url_options[:host] = 'localhost:3000'
 
-  def send_next_lesson(user, course)
-    @next_lesson = Helper.next_lesson user, course
-    mail to: user.email, subject: @next_lesson.title
+  def send_lesson(user, lesson)
+    @lesson = lesson
+    mail to: user.email,
+         subject: @lesson.title
   end
 
   def send_status(user)

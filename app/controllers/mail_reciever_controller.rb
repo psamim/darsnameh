@@ -16,7 +16,7 @@ class MailRecieverController < ApplicationController
     if enrollment # && !enrollment.confirmed
       enrollment.confirmed = true
       enrollment.save
-      send_welcome_mail user, enrollment.course
+      send_first_mail user, enrollment.course
       return
     end
 
@@ -64,9 +64,17 @@ class MailRecieverController < ApplicationController
     'Status mail sent to  ' + user.email + ' with ID ' + user.id.to_s
   end
 
-  def send_welcome_mail(user, course)
-    # WelcomeWorker.perform_async user.id, course.id
-    WelcomeWorker.new.perform user.id, course.id
+  def send_first_mail(user, course)
+    # Send welcome mail
+    WelcomeWorker.perform_async user.id, course.id
+
+    # Send first lesson
+    first_lesson = course.lessons.where(position: 1).first
+    LessonWorker.perform_async user.id, first_lesson.id
+
+    # Queue next quiz
+    Helper.queue_next_quiz(user, first_lesson)
+
     render plain:
     'Welcome mail sent to  ' + user.email + ' with ID ' + user.id.to_s
   end

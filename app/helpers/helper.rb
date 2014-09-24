@@ -24,8 +24,8 @@ module Helper
     quiz
   end
 
-  def self.queue_next_quiz(user, course)
-    next_quiz = Helper.create_quiz user, Helper.next_lesson(user, course)
-    NextQuizWorker.perform_async next_quiz.id
+  def self.queue_next_quiz(user, lesson)
+    next_quiz = create_quiz user, lesson
+    QuizWorker.perform_async next_quiz.id
   end
 end

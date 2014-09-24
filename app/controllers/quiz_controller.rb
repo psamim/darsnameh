@@ -1,11 +1,11 @@
 class QuizController < ApplicationController
-  include Helper
   require 'digest/sha1'
 
   before_action :find_secret, only: [:show, :correct]
   before_action :find_quiz, only: [:show, :correct]
+  before_action :find_next_lesson, only: [:correct]
 
-  attr_accessor :quiz, :secret
+  attr_accessor :quiz, :secret, :next_lesson
 
   def show
     @questions = Question.where(lesson: quiz.lesson)
@@ -14,8 +14,14 @@ class QuizController < ApplicationController
   def correct
     quiz.grade = answers.select(&:correct).count
     quiz.save
-    send_next_lesson
-    Helper.queue_next_quiz
+
+    if next_lesson
+      send_next_lesson
+      queue_next_quiz
+    else
+      send_course_finished
+    end
+
     render json: quiz.grade
   end
 
@@ -33,6 +39,10 @@ class QuizController < ApplicationController
     @quiz.lesson
   end
 
+  def find_next_lesson
+    self.next_lesson = Helper.next_lesson user, course
+  end
+
   def answers
     answer_ids = params.require(:answers).map { |a| a[1] }
     Answer.find(answer_ids)
@@ -43,7 +53,7 @@ class QuizController < ApplicationController
   end
 
   def send_next_lesson
-    NextLessonWorker.perform_async user.id, course.id
+    LessonWorker.perform_async user.id, next_lesson.id
   end
 
   def find_quiz
@@ -53,5 +63,12 @@ class QuizController < ApplicationController
       return false
     end
     render plain: 'Expired' if quiz.expire < Time.now
+  end
+
+  def queue_next_quiz
+    Helper.queue_next_quiz user, next_lesson
+  end
+
+  def send_course_finished
   end
 end
