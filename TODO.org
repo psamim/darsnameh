@@ -7,7 +7,8 @@ CLOSED: [2014-09-24 Wed 11:59]
 * TODO Internationalization
 * TODO Quiz layout
 * TODO Grade layout
-* TODO Rich text editor for lesson text
+* DONE Rich text editor for lesson text
+CLOSED: [2014-09-24 Wed 16:43]
 * TODO [#A] Send quiz again if failed
 * TODO [#C] Cancel enrollment if failed two times
 * TODO [#C] Quiz has one enrollment
