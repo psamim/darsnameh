@@ -5,6 +5,12 @@ class MailRecieverController < ApplicationController
   layout false
 
   def on_incoming_email
+    if command == 'test'
+      HelloWorld.perform_async
+      render plain: 'test'
+      return
+    end
+
     if command == 'status' && user
       send_status_mail
       return

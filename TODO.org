@@ -1,6 +1,7 @@
 * TODO [#A] Internationalization
 * TODO [#A] Send quiz again if failed
 * TODO [#A] Grading system
+* TODO add flash notice
 * TODO Change email settings to ENV
 * TODO Course finished view
 * TODO Quiz view
