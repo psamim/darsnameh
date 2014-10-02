@@ -7,8 +7,14 @@ FactoryGirl.define do
 
   factory :course do
     sequence :title do |n|
-      "course no. #{n}"
+      "course#{n}"
     end
     email { title }
+  end
+
+  factory :admin do
+    email 'admin'
+    password 'admin'
+    password_confirmation 'admin'
   end
 end
