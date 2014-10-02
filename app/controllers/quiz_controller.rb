@@ -61,7 +61,7 @@ class QuizController < ApplicationController
       render plain: 'Not found'
       return false
     end
-    render plain: 'Expired' if quiz.expire < Time.now
+    render plain: 'Expired' if quiz.expire < Time.now || quiz.grade != nil
   end
 
   def queue_next_quiz
