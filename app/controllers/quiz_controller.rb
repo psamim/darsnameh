@@ -13,7 +13,7 @@ class QuizController < ApplicationController
   end
 
   def result
-    quiz.grade = answers.select(&:correct).count
+    quiz.grade = answers.select(&:correct).size.fdiv(quiz.questions.size) * 100
     quiz.save
 
     if next_lesson
