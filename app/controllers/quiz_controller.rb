@@ -1,6 +1,4 @@
 class QuizController < ApplicationController
-  require 'digest/sha1'
-
   before_action :find_secret, only: [:show, :result]
   before_action :find_quiz, only: [:show, :result]
   before_action :find_next_lesson, only: [:result]
@@ -16,9 +14,12 @@ class QuizController < ApplicationController
     quiz.grade = answers.select(&:correct).size.fdiv(quiz.questions.size) * 100
     quiz.save
 
-    if next_lesson
-      send_next_lesson
-      queue_next_quiz
+    if quiz.grade < 60
+      queue_quiz quiz.lesson
+      render :failed
+    elsif next_lesson
+      send_lesson next_lesson
+      queue_quiz next_lesson
     else
       send_course_finished
     end
@@ -51,8 +52,8 @@ class QuizController < ApplicationController
     self.secret = params[:secret]
   end
 
-  def send_next_lesson
-    LessonWorker.perform_async user.id, next_lesson.id
+  def send_lesson(lesson)
+    LessonWorker.perform_async user.id, lesson.id
   end
 
   def find_quiz
@@ -64,8 +65,8 @@ class QuizController < ApplicationController
     render plain: 'Expired' if quiz.expire < Time.now || quiz.grade != nil
   end
 
-  def queue_next_quiz
-    Helper.queue_next_quiz user, next_lesson
+  def queue_quiz(lesson)
+    Helper.queue_next_quiz user, lesson
   end
 
   def send_course_finished

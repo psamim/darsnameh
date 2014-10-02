@@ -1,4 +1,6 @@
 module Helper
+  require 'digest/sha1'
+
   def self.next_lesson(user, course)
     last_quiz = Quiz.joins(:lesson)
       .where(%{
