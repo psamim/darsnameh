@@ -22,6 +22,7 @@ group :development, :test do
   gem 'minitest'
   gem 'thor'
   gem 'sinatra', '>= 1.3.0', :require => nil
+  gem 'rspec-rails', '~> 3.0.0'
 end
 
 # Add support for the MySQL
