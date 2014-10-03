@@ -1,6 +1,4 @@
 module Helper
-  require 'digest/sha1'
-
   def self.next_lesson(user, course)
     last_quiz = Quiz.joins(:lesson)
       .where(%{
@@ -16,18 +14,8 @@ module Helper
     next_lesson
   end
 
-  def self.create_quiz(user, lesson)
-    secret = Digest::SHA1.hexdigest Time.new.to_f.to_s + user.id.to_s
-    quiz = Quiz.create(
-      user: user,
-      lesson: lesson,
-      secret: secret,
-      expire: 2.day.from_now)
-    quiz
-  end
-
   def self.queue_next_quiz(user, lesson)
-    next_quiz = create_quiz user, lesson
+    next_quiz = Quiz.create_quiz user, lesson
     QuizWorker.perform_async next_quiz.id
   end
 end
