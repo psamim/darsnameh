@@ -11,8 +11,7 @@ class QuizController < ApplicationController
   end
 
   def result
-    quiz.grade = answers.select(&:correct).size.fdiv(quiz.questions.size) * 100
-    quiz.save
+    quiz.update(grade: grade)
 
     if quiz.grade < 60
       queue_quiz quiz.lesson
@@ -71,5 +70,9 @@ class QuizController < ApplicationController
 
   def send_course_finished
     CourseFinishedWorker.perform_async user, course
+  end
+
+  def grade
+    answers.select(&:correct).size.fdiv(quiz.questions.size) * 100
   end
 end
