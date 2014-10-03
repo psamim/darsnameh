@@ -17,4 +17,12 @@ FactoryGirl.define do
     password 'admin'
     password_confirmation 'admin'
   end
+
+  factory :lesson do
+    sequence :title do |n|
+      "lesson#{n}"
+    end
+    course
+    text { "text for #{title}"}
+  end
 end
