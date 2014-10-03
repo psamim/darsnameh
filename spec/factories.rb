@@ -22,7 +22,25 @@ FactoryGirl.define do
     sequence :title do |n|
       "lesson#{n}"
     end
+    sequence :position do |n|
+      n
+    end
     course
-    text { "text for #{title}"}
+    text { "text for #{title}" }
+  end
+
+  factory :question do
+    lesson
+    sequence :text do |n|
+      "question#{n}"
+    end
+  end
+
+  factory :answer do
+    question
+    correct true
+    sequence :text do |n|
+      "question#{n}"
+    end
   end
 end
