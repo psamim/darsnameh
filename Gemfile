@@ -25,6 +25,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'rspec-collection_matchers', '~> 1.0.0'
   gem 'factory_girl_rails', '~> 4.4.1'
+  gem 'fuubar', '~> 2.0.0'
 end
 
 # Add support for the MySQL
