@@ -73,6 +73,6 @@ class QuizController < ApplicationController
   end
 
   def grade
-    answers.select(&:correct).size.fdiv(quiz.questions.size) * 100
+    answers.select(&:correct).size.fdiv(quiz.lesson.questions.size) * 100
   end
 end
