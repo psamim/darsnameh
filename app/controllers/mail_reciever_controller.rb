@@ -11,6 +11,11 @@ class MailRecieverController < ApplicationController
       return
     end
 
+    if command == 'list'
+      send_all_courses
+      return
+    end
+
     if command == 'status' && user
       send_status_mail
       return
@@ -75,13 +80,19 @@ class MailRecieverController < ApplicationController
     WelcomeWorker.perform_async user.id, course.id
 
     # Send first lesson
-    first_lesson = course.lessons.where(position: 1).first
+    first_lesson = Helper.next_lesson(user, course)
     LessonWorker.perform_async user.id, first_lesson.id
 
     # Queue next quiz
     Helper.queue_next_quiz(user, first_lesson)
 
     render plain:
-    'Welcome mail sent to  ' + user.email + ' with ID ' + user.id.to_s
+    "Welcome mails sent to #{user.email} with ID #{user.id.to_s}"
+  end
+
+  def send_all_courses
+    ListWorker.perform_async(user.id)
+    render plain:
+      "Courses list send to #{user.email} with ID #{user.id.to_s}"
   end
 end
