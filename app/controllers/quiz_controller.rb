@@ -1,7 +1,6 @@
 class QuizController < ApplicationController
   before_action :find_secret, only: [:show, :result]
   before_action :find_quiz, only: [:show, :result]
-  before_action :find_next_lesson, only: [:result]
 
   attr_accessor :quiz, :secret, :next_lesson
   layout 'out'
@@ -38,7 +37,7 @@ class QuizController < ApplicationController
     @quiz.lesson
   end
 
-  def find_next_lesson
+  def next_lesson
     self.next_lesson = Helper.next_lesson user, course
   end
 
