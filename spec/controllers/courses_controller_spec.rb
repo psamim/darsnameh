@@ -3,27 +3,34 @@ require 'rails_helper'
 RSpec.describe CoursesController, type: :controller do
   describe 'GET index' do
     context 'when user is logged in' do
-      before(:each) do
+      before do
         admin = create(:admin)
         session[:admin_id] = admin.id
+        get :index
       end
 
       it 'assigns @courses' do
         course = create(:course)
-        get :index
         expect(assigns(:courses)).to include(course)
       end
 
-      it 'has a 200 status code' do
-        get :index
-        expect(response.status).to eq(200)
+      it 'has a success status code' do
+        expect(response).to have_http_status(:success)
       end
 
-      it 'renders the index template'
+      it 'renders the index template' do
+        expect(response).to render_template(:index)
+      end
     end
 
     context 'when user is not logged in' do
-      it 'renders login template'
+      before do
+        get :index
+      end
+
+      it 'redirects to login page' do
+        expect(response).to redirect_to(:login)
+      end
     end
   end
 end
