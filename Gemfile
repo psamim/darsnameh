@@ -28,6 +28,8 @@ group :development, :test do
   gem 'fuubar', '~> 2.0.0'
 end
 
+gem 'rspec-sidekiq', '~> 2.0.0', group: :test
+
 # Add support for the MySQL
 group :production, :mysql do
   gem 'mysql2'
