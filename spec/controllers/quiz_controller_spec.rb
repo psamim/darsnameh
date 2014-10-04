@@ -3,20 +3,20 @@ require 'rails_helper'
 RSpec.describe QuizController, type: :controller do
 
   describe 'Quiz' do
-    let!(:quiz) do
-      course = create(:course)
-      user = create(:user)
-      user.courses << course
-      lessons = create_list(:lesson,2, course: course)
-      questions = create_list(:question, 4, lesson: lessons[0])
-      questions.each do |question| 
-        create(:answer, question: question)
-      end
-      Quiz.create_quiz(user, lessons[0])
-    end
+    let(:user) { create(:user) }
+    let(:course) { course = create(:course) }
+    let(:lessons) { lessons = create_list(:lesson, 2, course: course) }
+    let(:quiz) { Quiz.create_quiz(user, lessons[0]) }
+    let(:answers) { quiz.lesson.questions.map { |q| q.answers.first.id } }
 
-    let(:answers) do
-      quiz.lesson.questions.map { |q| q.answers.first.id }
+    before do
+      user.courses << course
+      lessons.each do |lesson| 
+        questions = create_list(:question, 4, lesson: lesson)
+        questions.each do |question| 
+          create(:answer, question: question)
+        end
+      end
     end
 
     def correct_answers(number)
@@ -79,8 +79,25 @@ RSpec.describe QuizController, type: :controller do
            expect(LessonWorker).to have_enqueued_job(quiz.user.id, next_lesson.id)
         end
 
-        it 'sends the next lesson quiz'
-        it 'sends course is finished if it is the last lesson'
+        it 'sends the next lesson quiz' do
+           next_lesson = Helper.next_lesson(quiz.user, quiz.lesson.course)
+           next_lessson_quiz = Quiz.where(lesson: next_lesson, user: user, grade: nil).first
+           expect(QuizWorker).to have_enqueued_job(next_lessson_quiz.id)
+        end
+
+        context 'when it is the lesson' do
+          let(:quiz) { Quiz.create_quiz(user, lessons[1]) }
+
+          before do
+            get :result,
+                secret: quiz.secret,
+                answers: correct_answers(3)
+          end
+
+          it 'sends that the course is finished' do
+           expect(CourseFinishedWorker).to have_enqueued_job(quiz.user.id, quiz.lesson.course.id)
+          end
+        end
       end
     end
   end

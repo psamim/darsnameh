@@ -68,7 +68,7 @@ class QuizController < ApplicationController
   end
 
   def send_course_finished
-    CourseFinishedWorker.perform_async user, course
+    CourseFinishedWorker.perform_async user.id, course.id
   end
 
   def grade
