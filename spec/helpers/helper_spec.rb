@@ -26,5 +26,15 @@ RSpec.describe Helper, :type => :helper do
         expect(Helper.next_lesson(user, course)).to eq(lesson_two)
       end
     end
+
+    context 'when quiz of lesson one and two is taken' do
+      before do
+        create(:quiz, lesson: lesson_one, user: user, grade: 100)
+        create(:quiz, lesson: lesson_two, user: user, grade: 100)
+      end
+      it 'gives nil' do
+        expect(Helper.next_lesson(user, course)).to be_nil
+      end
+    end
   end
 end
