@@ -43,4 +43,10 @@ FactoryGirl.define do
       "question#{n}"
     end
   end
+
+  factory :quiz do
+    lesson
+    user
+    secret { Quiz.generate_secret(user) }
+  end
 end
