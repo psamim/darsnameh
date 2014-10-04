@@ -1,7 +1,7 @@
 class MailRecieverController < ApplicationController
   before_action :set_user, only: :on_incoming_email
   before_action :set_command, only: :on_incoming_email
-  attr_accessor :user, :command
+  attr_accessor :user, :command, :course, :enrollment
   layout false
 
   def on_incoming_email
@@ -18,7 +18,7 @@ class MailRecieverController < ApplicationController
 
     # See if it is a enrollment confirmation mail
     code = /\d{4}/.match(email_params['stripped-text']).to_s || 99_999
-    enrollment = Enrollment.where(code: code, user: user).first
+    self.enrollment = Enrollment.where(code: code, user: user).first
     if enrollment # && !enrollment.confirmed
       enrollment.confirmed = true
       enrollment.save
@@ -27,7 +27,7 @@ class MailRecieverController < ApplicationController
     end
 
     # See if it is a course enrollment mail
-    course = Course.find_by_email command
+    self.course = Course.find_by_email command
     if course
       send_enrollment_confirmation_mail user, course
       return
