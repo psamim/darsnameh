@@ -15,6 +15,23 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'factory_girl_rails'
+require 'rspec-sidekiq'
+
+RSpec::Sidekiq.configure do |config|
+  # Clears all job queues before each example
+  config.clear_all_enqueued_jobs = true # default => true
+
+  # Whether to use terminal colours when outputting messages
+  config.enable_terminal_colours = true # default => true
+
+  # Warn when jobs are not enqueued to Redis but to a job array
+  config.warn_when_jobs_not_processed_by_sidekiq = false # default => true
+end
+
+Sidekiq::Testing.fake! # fake is the default mode
+# Sidekiq::Testing.inline!
+# Sidekiq::Testing.disable!
+
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 # The settings below are suggested to provide a good initial experience
