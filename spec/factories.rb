@@ -49,4 +49,11 @@ FactoryGirl.define do
     user
     secret { Quiz.generate_secret(user) }
   end
+
+  factory :enrollment do
+    user
+    course
+    confirmed false
+    code 1234
+  end
 end
