@@ -1,3 +1,9 @@
+<p>Course is
+  <span class="bg-<%= @course.visible ? 'success' : 'danger' %>">
+  <%= @course.visible ? 'visble' : 'invisible' %></span>
+<%= link_to '(Toggle)', course_path(@course, toggle_visible: true) %>
+</p>
+<br />
 <h3 class="page-header ">Intro</h3>
 <%= raw @course.intro %>
 

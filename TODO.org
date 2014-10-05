@@ -1,8 +1,6 @@
-* TODO [#A] Internationalization
-* TODO [#A] Send quiz again if failed
-* TODO [#A] Grading system
+* TODO [#C] Internationalization
 * TODO add flash notice
-* TODO Change email settings to ENV
+* TODO Courses can be unavailable
 * TODO Course finished view
 * TODO Quiz view
 * TODO Grade view
@@ -14,11 +12,17 @@
 CLOSED: [2014-09-24 Wed 11:58]
 * DONE [#A] URL to quiz
 CLOSED: [2014-09-24 Wed 11:59]
-* DONE Course finished mail
-CLOSED: [2014-09-24 Wed 17:57]
-* DONE Rich text editor for lesson text
-CLOSED: [2014-09-24 Wed 16:43]
 * DONE better login url
 CLOSED: [2014-09-24 Wed 16:16]
+* DONE Rich text editor for lesson text
+CLOSED: [2014-09-24 Wed 16:43]
 * DONE Ability for admin to change password
 CLOSED: [2014-09-24 Wed 17:47]
+* DONE Course finished mail
+CLOSED: [2014-09-24 Wed 17:57]
+* DONE [#A] Send quiz again if failed
+CLOSED: [2014-10-05 Sun 20:49]
+* DONE [#A] Grading system
+CLOSED: [2014-10-05 Sun 20:50]
+* DONE Change email settings to ENV
+CLOSED: [2014-10-05 Sun 20:50]
