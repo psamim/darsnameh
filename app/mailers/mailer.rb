@@ -24,24 +24,28 @@ class Mailer < ActionMailer::Base
     @enrollment  = user.enrollments
       .create course: course, code: code, user: user
     mail to: user.email,
-      subject: "Confirm your enrollment in  #{course.title}"
+         subject: "Confirm your enrollment in  #{course.title}"
   end
 
   def send_welcome(user, course)
     @course = course
     mail to: user.email,
-      subject: "Welcome to #{course.title}"
+         subject: "Welcome to #{course.title}"
   end
 
   def send_quiz(quiz)
     @quiz = quiz
     mail to: quiz.user.email,
-      subject: "Quiz for #{quiz.lesson.title}"
+         subject: "Quiz for #{quiz.lesson.title}"
   end
 
   def send_course_finished(user, course)
     @course = course
     mail to: user.email,
          subject: "You finished #{course.title}"
+  end
+
+  def send_all_courses
+    
   end
 end

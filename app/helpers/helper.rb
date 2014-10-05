@@ -1,8 +1,8 @@
 module Helper
-  def self.next_lesson(user, course, h = 0)
+  def self.next_lesson(user, course)
     last_quiz = Quiz.joins(:lesson)
       .where.not(grade: nil)
-      .where(lessons: {course_id: course}, user: user)
+      .where(lessons: { course_id: course }, user: user)
       .order(:created_at)
       .last
     return course.lessons.order(:position).first unless last_quiz

@@ -1,6 +1,4 @@
 * TODO [#C] Internationalization
-* TODO add flash notice
-* TODO Courses can be unavailable
 * TODO Course finished view
 * TODO Quiz view
 * TODO Grade view
@@ -8,6 +6,10 @@
 * TODO First page view
 * TODO [#C] Cancel enrollment if failed two times
 * TODO [#C] Quiz has one enrollment
+* DONE add flash notice
+CLOSED: [2014-10-05 Sun 22:59]
+* DONE Courses can be unavailable
+CLOSED: [2014-10-05 Sun 21:27]
 * DONE [#A] Quiz for last lesson
 CLOSED: [2014-09-24 Wed 11:58]
 * DONE [#A] URL to quiz
