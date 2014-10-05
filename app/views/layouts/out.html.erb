@@ -32,8 +32,7 @@
       </div>
     </div>
  <div class="container-fluid">
-
-            ** <%= flash[:notice] %> **
+            <%= flash[:notice] ? raw("<p class='bg-warning'>#{flash[:notice]}</p>") : '' %>
       <!-- <div class="row"> -->
       <!--   <div class="col-sm-3 col-md-2 sidebar"> -->
       <!--     <ul class="nav nav-sidebar"> -->
