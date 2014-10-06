@@ -1,8 +1,5 @@
 class AccessController < ApplicationController
-  layout "out"
-
-  def welcome
-  end
+  layout 'out'
 
   def login
     @admin = Admin.new
@@ -10,22 +7,20 @@ class AccessController < ApplicationController
 
   def logout
     session[:admin_id] = nil
-    flash[:notice] = "Logged out successfuly"
-    redirect_to :action => :login
+    flash[:notice] = 'Logged out successfuly'
+    redirect_to action: :login
   end
 
   def attempt_login
     if access_params[:email].present? && access_params[:password].present?
       admin = Admin.where(:email => access_params[:email]).first
-      if (admin)
-        auth_admin = admin.authenticate access_params[:password]
-      end
+      auth_admin = admin.authenticate access_params[:password] if admin
     end
-    if (auth_admin)
+    if auth_admin
       session[:admin_id] = auth_admin.id
       redirect_to courses_path
     else
-      redirect_to :action => :login
+      redirect_to action: :login
     end
   end
 

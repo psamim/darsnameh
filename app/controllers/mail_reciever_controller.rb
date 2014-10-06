@@ -53,7 +53,7 @@ class MailRecieverController < ApplicationController
     return if user
     self.user = User.new
     user.email = email_params[:sender]
-    user.save
+    return false unless user.save
   end
 
   def set_command
