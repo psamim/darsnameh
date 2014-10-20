@@ -3,6 +3,7 @@ class MailRecieverController < ApplicationController
   before_action :set_command, only: :on_incoming_email
   attr_accessor :user, :command, :course, :enrollment
   layout false
+  skip_before_filter :verify_authenticity_token
 
   def on_incoming_email
     if command == 'test'
