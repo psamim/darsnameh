@@ -45,7 +45,9 @@ class Mailer < ActionMailer::Base
          subject: "You finished #{course.title}"
   end
 
-  def send_all_courses
-    
+  def send_all_courses(user)
+    @courses = Course.where(visible: true)
+    mail to: user.email,
+         subject: "List of Courses"
   end
 end
