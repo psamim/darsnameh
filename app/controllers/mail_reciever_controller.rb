@@ -23,7 +23,7 @@ class MailRecieverController < ApplicationController
     end
 
     # See if it is a enrollment confirmation mail
-    code = /\d{4}/.match(email_params['stripped-text']).to_s || 99_999
+    code = /\d{4}/.match(email_params['body-plain']).to_s || 99_999
     self.enrollment = Enrollment.where(code: code, user: user).first
     if enrollment # && !enrollment.confirmed
       enrollment.confirmed = true

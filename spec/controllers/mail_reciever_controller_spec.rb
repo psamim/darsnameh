@@ -17,6 +17,7 @@ RSpec.describe MailRecieverController, type: :controller do
           recipient: "#{command}@example.com",
           sender: sender,
           'stripped-text' => "#{text}",
+          'body-plain' => ".#{text}.",
           subject: mail_subject
 
     end
