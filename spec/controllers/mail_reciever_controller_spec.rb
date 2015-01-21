@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'rails_helper'
 
 RSpec.describe MailRecieverController, type: :controller do
@@ -53,7 +54,7 @@ RSpec.describe MailRecieverController, type: :controller do
     context 'when it is an enrollment confirmation mail' do
       let(:user) { create(:user) }
       let(:sender) { user.email }
-      let(:enrollment) { create(:enrollment, course: course, user: user, code: 1234) }
+      let(:enrollment) { create(:enrollment, course: course, user: user, code: 12345) }
       let(:text) { enrollment.code }
 
       it 'finds the confirmation code' do

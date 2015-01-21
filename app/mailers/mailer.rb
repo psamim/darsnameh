@@ -20,7 +20,7 @@ class Mailer < ActionMailer::Base
   end
 
   def send_enrollment_confirmation(user, course)
-    code = rand(1000...9999)
+    code = rand(10_000...99_999)
     @enrollment  = user.enrollments
       .create course: course, code: code, user: user
     mail to: user.email,
