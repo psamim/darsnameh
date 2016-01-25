@@ -1,0 +1,6 @@
+ruby:
+  build: .
+  volumes:
+    - .:/usr/src/app
+  ports:
+    - "8080:4567"

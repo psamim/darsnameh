@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '4.1.4'
 
@@ -84,3 +84,4 @@ gem 'premailer-rails', '~> 1.8.0'
 gem 'ckeditor', '~> 4.1.0'
 gem 'paperclip', '~> 4.2.0'
 gem 'validates_email_format_of', '~> 1.6.1'
+gem 'foreman'
